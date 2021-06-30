@@ -35,6 +35,9 @@ def stream_report(report_url, user, password):
         except:
             v_encoding = resp.encoding
 
+        if v_encoding is None:
+            v_encoding = 'utf-8'
+
         # Set up our search key
         report_entry_key = b'Report_Entry'
         search_prefix = report_entry_key.decode('utf-8') + '.item'
