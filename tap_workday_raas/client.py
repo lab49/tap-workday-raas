@@ -57,7 +57,10 @@ def stream_report(report_url, user, password):
         for chunk in resp.iter_content(chunk_size=512):
             if report_entry_key in chunk:
                 found_key = True
-            coro.send(chunk.decode(v_encoding))
+            try:
+                coro.send(chunk.decode(v_encoding))
+            except TypeError:
+                coro.send(chunk)
             for rec in records:
                 yield rec
             del records[:]
